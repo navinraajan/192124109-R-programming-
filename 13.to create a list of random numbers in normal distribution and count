@@ -1,0 +1,6 @@
+# Generate a list of 1000 random numbers in normal distribution
+random_numbers <- rnorm(10, mean = 10, sd = 10)
+# Create a table to store the occurrences of each value
+table_of_occurrences <- table(random_numbers)
+# Print the table of occurrences
+print(table_of_occurrences)
