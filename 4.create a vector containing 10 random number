@@ -1,0 +1,3 @@
+set.seed(123)
+random<-sample(-50:50,10,replace = TRUE)
+cat("RAndom numbers",random,"\n")
