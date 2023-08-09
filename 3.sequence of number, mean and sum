@@ -1,0 +1,6 @@
+numbers_seq<-20:50
+mean <- mean(20:60)
+sum<-sum(51:91)
+cat(numbers_seq,"\n")
+cat(mean,"\n")
+cat(sum,"\n")
