@@ -1,6 +1,0 @@
-#factor gender with make and female
-gender <- factor(c("female","male","female"))
-gender
-
-#check whether the variable is factor and return "true"
-is.factor(gender)
