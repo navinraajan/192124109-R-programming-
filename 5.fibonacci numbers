@@ -1,0 +1,17 @@
+fibonacci <- function(n) {
+  if (n == 0) {
+    return(0)
+  } else if (n == 1) {
+    return(1)
+  } else {
+    return(fibonacci(n - 1) + fibonacci(n - 2))
+  }
+}
+
+# Get the number of Fibonacci numbers to print
+n <- as.integer(readline(prompt = "How many Fibonacci numbers do you want to print? "))
+
+# Print the Fibonacci sequence
+for (i in 1:n) {
+  print(fibonacci(i))
+}
