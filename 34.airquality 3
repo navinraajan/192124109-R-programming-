@@ -1,0 +1,28 @@
+# Load required libraries
+library(ggplot2)
+library(dplyr)
+
+# (i) Find and handle missing values
+threshold <- 0.1  # 10% threshold
+na_count <- colSums(is.na(airquality))
+columns_to_replace <- names(na_count[na_count <= threshold * nrow(airquality)])
+columns_to_drop <- names(na_count[na_count > threshold * nrow(airquality)])
+
+# Replace missing values with mean for selected columns
+for (col in columns_to_replace) {
+  airquality[[col]][is.na(airquality[[col]])] <- mean(airquality[[col]], na.rm = TRUE)
+}
+
+# Drop columns with too many missing values
+airquality <- airquality[, !(names(airquality) %in% columns_to_drop)]
+
+# (ii) Linear regression on "Ozone" and "Solar.R"
+model <- lm(Ozone ~ Solar.R, data = airquality)
+
+# (iii) Scatter plot with regression line
+ggplot(airquality, aes(x = Solar.R, y = Ozone)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, color = "red") +
+  labs(x = "Solar Radiation", y = "Ozone") +
+  ggtitle("Scatter Plot of Ozone vs. Solar Radiation with Regression Line")
+
