@@ -1,0 +1,71 @@
+# Load required libraries
+library(datasets)
+library(ggplot2)
+library(dplyr)
+
+# Load USArrests dataset
+data("USArrests")
+
+# (i.a) Explore the summary of the dataset
+features <- names(USArrests)
+num_records <- nrow(USArrests)
+feature_types <- sapply(USArrests, class)
+summary_stats <- summary(USArrests)
+
+print("Number of Features:")
+print(length(features))
+cat("\n")
+
+print("Types of Features:")
+print(feature_types)
+cat("\n")
+
+print("Number of Records for Each Feature:")
+print(table(feature_types))
+cat("\n")
+
+print("Summary Statistics:")
+print(summary_stats)
+cat("\n")
+
+# (i.b) Print the state with the largest total number of rape
+max_rape_state <- rownames(USArrests)[which.max(USArrests$Rape)]
+cat("State with the Largest Total Number of Rape:", max_rape_state, "\n\n")
+
+# (i.c) Print states with max & min crime rates for murder
+max_murder_state <- rownames(USArrests)[which.max(USArrests$Murder)]
+min_murder_state <- rownames(USArrests)[which.min(USArrests$Murder)]
+cat("State with the Max Crime Rate for Murder:", max_murder_state, "\n")
+cat("State with the Min Crime Rate for Murder:", min_murder_state, "\n\n")
+
+# (ii.a) Find the correlation among the features
+correlation_matrix <- cor(USArrests)
+
+# (ii.b) Print states with assault arrests more than the median of the country
+median_assault <- median(USArrests$Assault)
+high_assault_states <- rownames(USArrests)[USArrests$Assault > median_assault]
+
+# (ii.c) Print states in the bottom 25% of murder
+murder_bottom_25 <- quantile(USArrests$Murder, probs = 0.25)
+bottom_25_murder_states <- rownames(USArrests)[USArrests$Murder <= murder_bottom_25]
+
+# (iii.a) Create a histogram and density plot of murder arrests
+histogram_density_murder <- ggplot(USArrests, aes(x = Murder)) +
+  geom_histogram(binwidth = 2, fill = "blue", color = "black", alpha = 0.7) +
+  geom_density(fill = "orange", alpha = 0.5) +
+  labs(x = "Murder Arrests", y = "Frequency", title = "Histogram and Density Plot of Murder Arrests")
+print(histogram_density_murder)
+
+# (iii.b) Create a scatter plot with murder and assault arrest rates, colored by urban percentage
+scatter_plot <- ggplot(USArrests, aes(x = Murder, y = Assault, color = UrbanPop)) +
+  geom_point() +
+  labs(x = "Murder Arrests", y = "Assault Arrests", title = "Murder vs. Assault Arrests by Urban Percentage")
+print(scatter_plot)
+
+# (iii.c) Bar graph to show the murder rate for each state
+bar_chart_murder <- ggplot(USArrests, aes(x = reorder(rownames(USArrests), -Murder), y = Murder)) +
+  geom_bar(stat = "identity", fill = "purple") +
+  coord_flip() +
+  labs(x = "State", y = "Murder Rate", title = "Murder Rate for Each State") +
+  theme_minimal()
+print(bar_chart_murder)
