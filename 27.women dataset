@@ -1,0 +1,8 @@
+data("women")
+
+# Create a factor corresponding to the 'height' variable
+height_factor <- factor(women$height)
+
+# Display the levels of the factor
+cat("Levels of the 'height_factor' factor:\n")
+print(levels(height_factor))
