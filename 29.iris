@@ -1,0 +1,47 @@
+# Load the Iris dataset
+data(iris)
+
+# (i) Find dimension, Structure, Summary statistics, and Standard Deviation of all features.
+cat("Dimensions of the Iris dataset:\n")
+print(dim(iris))
+
+cat("\nStructure of the Iris dataset:\n")
+str(iris)
+
+cat("\nSummary statistics of the Iris dataset:\n")
+print(summary(iris))
+
+cat("\nStandard Deviations of all features:\n")
+print(sapply(iris[, 1:4], sd))
+
+# (ii) Find mean and standard deviation of features grouped by three species of Iris flowers
+species_stats <- aggregate(. ~ Species, data = iris, FUN = function(x) c(mean = mean(x), sd = sd(x)))
+print("\nMean and Standard Deviation of Features Grouped by Species:")
+print(species_stats)
+
+# (iii) Find quantile value of sepal width and length
+quantile_sepal_width <- quantile(iris$Sepal.Width, probs = c(0.25, 0.5, 0.75))
+quantile_sepal_length <- quantile(iris$Sepal.Length, probs = c(0.25, 0.5, 0.75))
+cat("\nQuantile values of Sepal Width:\n")
+print(quantile_sepal_width)
+cat("\nQuantile values of Sepal Length:\n")
+print(quantile_sepal_length)
+
+# (iv) Create new data frame iris1 with a new column Sepal.Length.Cate
+iris1 <- iris
+iris1$Sepal.Length.Cate <- cut(iris$Sepal.Length, breaks = quantile_sepal_length)
+
+# (v) Average value of numerical variables by Species and Sepal.Length.Cate
+avg_values <- aggregate(. ~ Species + Sepal.Length.Cate, data = iris1, FUN = mean)
+print("\nAverage Values of Numerical Variables by Species and Sepal.Length.Cate:")
+print(avg_values)
+
+# (vi) Average mean value of numerical variables by Species and Sepal.Length.Cate
+avg_mean_values <- aggregate(. ~ Species + Sepal.Length.Cate, data = iris1, FUN = function(x) mean(mean(x)))
+print("\nAverage Mean Values of Numerical Variables by Species and Sepal.Length.Cate:")
+print(avg_mean_values)
+
+# (vii) Create Pivot Table based on Species and Sepal.Length.Cate
+pivot_table <- reshape2::dcast(iris1, Species ~ Sepal.Length.Cate, value.var = "Sepal.Width", fun.aggregate = mean)
+print("\nPivot Table based on Species and Sepal.Length.Cate:")
+print(pivot_table)
