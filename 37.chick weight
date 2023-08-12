@@ -1,0 +1,31 @@
+# Load required libraries
+library(dplyr)
+library(stats)
+
+# Load ChickWeight dataset
+data("ChickWeight")
+
+# a. Create a multiple regression model with "Time" and "Diet" as predictor variables
+model <- lm(weight ~ Time + factor(Diet), data = ChickWeight)
+
+# b. Predict weight for Time=10 and Diet=1
+new_data <- data.frame(Time = 10, Diet = 1)
+predicted_weight <- predict(model, newdata = new_data)
+
+# c. Calculate the error in the model
+predicted_values <- predict(model)
+actual_values <- ChickWeight$weight
+errors <- actual_values - predicted_values
+mean_error <- mean(errors)
+
+# Print the results
+print("Multiple Regression Model:")
+print(summary(model))
+cat("\n")
+
+print("Predicted Weight for Time=10 and Diet=1:")
+print(predicted_weight)
+cat("\n")
+
+print("Mean Error in Model:")
+print(mean_error)
