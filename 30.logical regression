@@ -1,0 +1,25 @@
+library(caTools)  # For data splitting
+library(dplyr)    # For data manipulation
+library(caret)    # For confusion matrix
+
+# Load the Iris dataset
+data(iris)
+
+# Set the seed for reproducibility
+set.seed(123)
+
+# Randomly sample the data for training (80%) and test (20%)
+split <- sample.split(iris$Species, SplitRatio = 0.8)
+train_data <- subset(iris, split == TRUE)
+test_data <- subset(iris, split == FALSE)
+
+# Create logistic regression model with petal width and length as features
+model <- glm(Species ~ Petal.Length + Petal.Width, data = train_data, family = "binomial")
+
+# Predict the probability using the test data
+test_probs <- predict(model, newdata = test_data, type = "response")
+
+# Create Confusion Matrix
+conf_matrix <- confusionMatrix(factor(ifelse(test_probs > 0.5, "versicolor", "setosa")), test_data$Species)
+print("Confusion Matrix:")
+print(conf_matrix)
