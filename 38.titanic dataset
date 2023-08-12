@@ -1,0 +1,28 @@
+# Load required libraries
+library(ggplot2)
+library(dplyr)
+
+# Load Titanic dataset
+data("Titanic")
+
+# a. Bar chart to show details of "Survived" based on passenger Class
+bar_chart_class <- ggplot(Titanic, aes(x = Class, fill = factor(Survived))) +
+  geom_bar(position = "dodge") +
+  labs(x = "Passenger Class", y = "Count", title = "Survival Count by Passenger Class") +
+  scale_fill_discrete(name = "Survived", labels = c("No", "Yes"))
+print(bar_chart_class)
+
+# b. Bar chart to show details of "Survived" based on passenger Class and Gender
+bar_chart_class_gender <- ggplot(Titanic, aes(x = Class, fill = factor(Survived))) +
+  geom_bar(position = "dodge") +
+  facet_grid(. ~ Sex) +
+  labs(x = "Passenger Class", y = "Count", title = "Survival Count by Passenger Class and Gender") +
+  scale_fill_discrete(name = "Survived", labels = c("No", "Yes"))
+print(bar_chart_class_gender)
+
+# c. Histogram plot to show distribution of feature "Age"
+histogram_age <- ggplot(Titanic, aes(x = Age)) +
+  geom_histogram(binwidth = 5, fill = "blue", color = "black") +
+  labs(x = "Age", y = "Count", title = "Distribution of Age") +
+  theme_minimal()
+print(histogram_age)
