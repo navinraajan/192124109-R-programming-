@@ -1,0 +1,14 @@
+# Create a random sample from the LETTERS vector
+set.seed(123)  # For reproducibility
+sample_letters <- sample(LETTERS, size = 10, replace = TRUE)
+
+# Create a factor from the random sample
+sample_factor <- factor(sample_letters)
+
+# Extract five levels from the factor
+extracted_levels <- levels(sample_factor)[1:5]
+
+# Display the extracted levels
+cat("Extracted levels from the 'sample_factor' factor:\n")
+print(extracted_levels)
+
