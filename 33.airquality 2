@@ -17,5 +17,6 @@ casted_data <- dcast(melted_data_with_id, Month + Day ~ variable)
 head(casted_data)
 
 # (v) Use cast function appropriately and compute the average of Ozone, Solar.R, Wind, and temperature per month
-average_per_month <- dcast(melted_data_with_id, Month ~ variable, mean)
-average_per_month
+
+avg<-aggregate(airquality[,c("Ozone","Solar.R","Wind","Temp")],by=list(Month=airquality$Month),FUN = mean,na.rm=TRUE)
+print(avg)
