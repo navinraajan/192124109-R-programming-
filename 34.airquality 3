@@ -1,28 +1,28 @@
-# Load required libraries
-library(ggplot2)
+# Load the required library
 library(dplyr)
 
-# (i) Find and handle missing values
-threshold <- 0.1  # 10% threshold
-na_count <- colSums(is.na(airquality))
-columns_to_replace <- names(na_count[na_count <= threshold * nrow(airquality)])
-columns_to_drop <- names(na_count[na_count > threshold * nrow(airquality)])
+# Find missing values for each feature
+missing_values <- sapply(airquality, function(x) sum(is.na(x)))
 
-# Replace missing values with mean for selected columns
-for (col in columns_to_replace) {
-  airquality[[col]][is.na(airquality[[col]])] <- mean(airquality[[col]], na.rm = TRUE)
-}
+# Threshold for replacing missing values
+threshold <- 0.10 * nrow(airquality)
 
-# Drop columns with too many missing values
-airquality <- airquality[, !(names(airquality) %in% columns_to_drop)]
+# Replace missing values with mean if less than the threshold
+airquality <- airquality %>%
+  mutate_if(~sum(is.na(.)) < threshold, ~ifelse(is.na(.), mean(., na.rm = TRUE), .))
+print(airquality)
 
-# (ii) Linear regression on "Ozone" and "Solar.R"
+# Fit a linear regression model
 model <- lm(Ozone ~ Solar.R, data = airquality)
 
-# (iii) Scatter plot with regression line
+# Print the summary of the regression model
+summary(model)
+
+# Load the required library for plotting
+library(ggplot2)
+
+# Create a scatter plot
 ggplot(airquality, aes(x = Solar.R, y = Ozone)) +
   geom_point() +
-  geom_smooth(method = "lm", formula = y ~ x, color = "red") +
-  labs(x = "Solar Radiation", y = "Ozone") +
-  ggtitle("Scatter Plot of Ozone vs. Solar Radiation with Regression Line")
-
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  labs(x = "Solar.R", y = "Ozone", title = "Scatter Plot with Regression Line")
