@@ -1,0 +1,342 @@
+name<-readline("enter the name:")
+age<-readline("enter the age:")
+cat("Name:",name)
+cat("Age:",age)
+cat("R version:",R.version.string,"\n")
+
+#2.object
+# Create some sample objects in memory
+x <- 1:10
+y <- c("apple", "banana", "cherry")
+z <- data.frame(Name = c("Alice", "Bob", "Carol"), Age = c(25, 30, 22))
+
+# Get the list of object names in memory
+object_names <- ls()
+
+# Get details of each object
+for (object_name in object_names) {
+  object <- get(object_name)
+  cat("Object Name: ", object_name, "\n")
+  cat("Object Type: ", class(object), "\n")
+  cat("Object Contents:\n")
+  print(object)
+  cat("\n")
+}
+
+#3.
+seq<-seq(20,30)
+cat(seq)
+mean<-mean(seq(20,60))
+cat(mean)
+sum<-sum(seq(51,91))
+cat(sum)
+
+#4.
+set.seed(123)
+random<-sample(-50:50,1,replace=TRUE)
+cat(random)
+
+#5.
+fibanacci<-function(n){
+  if(n==0)
+    return(0)
+  else if(n==1)
+    return(1)
+  else
+    return(fibanacci(n-1)+fibanacci(n-2))
+}
+n<-as.integer(readline("Enter the no.of series"))
+for (i in 0:n) {
+  print(fibanacci(i))
+  
+}
+
+#7.
+for (i in 1:100) {
+  if(i%%3==0)
+    print("FIZZ")
+  else if(i%%5==0)
+    print("BUZZ")
+  else if(i%%3==0 && i%%5==0)
+    print("FIZZ BUZZ")
+  else
+    print(i)
+  
+}
+
+#8.
+lower_10<-letters[1:10]
+print(lower_10)
+upper_last_10<-toupper(letters[16:26])
+print(upper_last_10)
+between<-letters[22:24]
+print(between)
+
+#9.
+find<-function(n){
+  factors<-c()
+  for(i in 1:n){
+    if(n%%i==0){
+      factors<-c(factors,i)
+    }
+  }
+  return(factors)
+    
+}
+n<-as.integer(readline("enter the number:"))
+factors<-find(n)
+print(factors)
+
+#10
+vector<-c(10,5,7,8,54,11,101)
+max_vector<-max(vector)
+cat(max_vector)
+
+#11.
+unique_string<-function(s){
+  
+  
+  unique_char<-unique(strsplit(s,'')[[1]])
+  return(unique_char)
+  
+  
+}
+unique_vector<-function(n)
+{
+  unique_num<-unique(n)
+  return(unique_num)
+}
+
+s<-readline("enter the string:")
+unique_char<-unique_string(s)
+print(unique_char)
+n<-as.integer(strsplit(readline("enter the number comma-separated: "),',')[[1]])
+unique_num<-unique_vector(n)
+print(unique_num)
+
+#12
+a<-c(1,2,3)
+b<-c(4,5,6)
+c<-c(7,8,9)
+combine<-rbind(a,b,c)
+print(combine)
+
+#13
+random<-rnorm(10,mean=10 , sd=10)
+print(random)
+table<-table(random)
+print(table)
+
+#14.
+data<-read.csv("stu.csv")
+print(data)
+
+#15
+a<-c("apple","banana","carrot")
+b<-c(101,102,103)
+c<-c(TRUE,FALSE,FALSE)
+type_a<-typeof(a)
+print(type_a)
+type_b<-typeof(b)
+print(type_b)
+type_c<-typeof(c)
+print(type_c)
+
+#16.
+matrix_5x4<-matrix(1:20,nrow=5,ncol=4)
+print(matrix_5x4)
+
+matrix_3x3<-matrix(1:9,nrow =3)
+rownames(matrix_3x3)<-c("a","b","c")
+print(matrix_3x3)
+
+matrix_2x2<-matrix(1:4,ncol = 2)
+colnames(matrix_2x2)<-c("a","b")
+print(matrix_2x2)
+
+#17.
+vec1<-c(1,2,3,4,5,6)
+dims<-c(2,3)
+array<-array(vec1,dim=dims,dimnames=list(c("row1","row2"),c("col1","Col2","col3")))
+print(array)
+
+#18.
+vector<-c(1:12)
+dims<-c(3,3,2)
+array<-array(vector,dim=dims)
+print(array)
+
+#19
+value<-c(1,2,3,4,5,6)
+mat<-matrix(1:4,nrow = 2,ncol = 2)
+f<-function(x,y){
+  x*y
+}
+listele<-list(value,mat,f)
+print(listele)
+
+#20
+x_limits <- c(0, 10)
+y_limits <- c(0, 20)
+# Create an empty plot with specified axis limits
+plot(NA, xlim = x_limits, ylim = y_limits, xlab = "X-axis", ylab = "Y-axis", main = "Empty Plot")
+
+#21
+a<-c(1,2,3,4,5,6,7,8,9)
+b<-c(10:18)
+a<-array(c(a,b),dim=c(3,3,2))
+print(a[2, ,2])
+print(a[3,3,1])
+
+#22
+# Create three sample arrays (you can replace these with your own arrays)
+a1 <- array(1:9, dim=c(3,3))
+a2 <- array(10:18,dim=c(3,3))
+a3 <- array(19:27,dim=c(3,3))
+a4<-apply(cbind(a1,a2,a3),1,function(x) rbind(x[1:3],x[4:6],x[7:9]))
+print(a4)
+
+#23
+a<-1:24
+v<-array(a,dim=c(3,4,2))
+print(v)
+
+#24
+v<-seq(52,80,2)
+a<-array(v,dim=c(5,3))
+print(a)
+
+#25
+exam_data = data.frame(
+  name = c('Anastasia', 'Dima', 'Katherine', 'James', 'Emily', 'Michael', 'Matthew', 'Laura', 'Kevin',
+           'Jonas'),
+  score = c(12.5, 9, 16.5, 12, 9, 20, 14.5, 13.5, 8, 19),
+  attempts = c(1, 3, 2, 3, 2, 3, 1, 1, 2, 1),
+  qualify = c('yes', 'no', 'yes', 'no', 'no', 'yes', 'yes', 'no', 'no', 'yes')
+)
+
+a<-exam_data[c(3,5),c(1,3)]
+print(a)
+
+Country<-c("USA","USA","USA","USA","UK","USA","USA","India","USA","USA")
+exam_data$Country<-Country
+print(exam_data)
+
+new_exam_data = data.frame(name = c('Robert', 'Sophia'),score = c(10.5, 9), attempts = c(1,3),qualify = c('yes', 'no'),Country=c('India','USA'))
+exam_data<-rbind(exam_data,new_exam_data)
+print(exam_data)
+
+
+sorted_exam_data<-exam_data[order(exam_data$name,exam_data$score),]
+print(sorted_exam_data)
+
+saveRDS(exam_data,file = "exam_data.rds")
+load<-readRDS("exam_data.rds")
+print(load)
+
+#26
+data(airquality)
+is.data.frame(airquality)
+ordered<-airquality[order(airquality$Ozone,airquality$Temp),]
+print(ordered)
+filter<-ordered[,!(names(ordered) %in% c('Solar.R','wind')) ]
+print(filter)
+
+#27
+data("women")
+factor<-factor(women$height)
+print(levels(factor))
+
+#28
+set.seed(123)
+sample<-sample(LETTERS,size = 10,replace = TRUE)
+factor<-factor(sample)
+level<-levels(factor)[1:5]
+print(level)
+
+#29.
+
+data("iris")
+dims=dim(iris)
+print(dims)
+summary<-summary(iris)
+print(summary)
+SD<-sapply(iris[,1:4],sd)
+print(SD)
+
+quant1<-quantile(iris$Sepal.Width,probs = c(0.25,0.5,0.75))
+print(quant1)
+quant2<-quantile(iris$Sepal.Length,probs = c(0.25,0.5,0.75) )
+print(quant2)
+
+iris1<-iris
+iris1$Sepal.Length.Cate<-cut(iris$Sepal.Length,breaks = quant2)
+print(iris1)
+library(dplyr)
+avg<-aggregate(.~Species+Sepal.Length.Cate,data = iris1,FUN = function(x) mean(mean(x)))
+print(avg)
+library(tidyr)
+pivot<-avg_values %>% pivot_wider(names_from=Sepal.Length.Cate,values_from=~c(Species,Sepal.Length.Cate))
+print(pivot)
+
+#33
+melted_airquality<-melt(airquality,id.vars = c("Month","Day"))
+print(melted_airquality)
+
+casted<-dcast(melted_airquality,Month+Day~variable)
+print(casted)
+
+avg<-aggregate(airquality[,c("Ozone","Solar.R","Wind","Temp")],by=list(Month=airquality$Month),FUN = mean,na.rm=TRUE)
+print(avg)
+
+
+
+# Load required libraries
+library(ggplot2)
+library(dplyr)
+
+# (i) Find and handle missing values
+threshold <- 0.1  # 10% threshold
+na_count <- colSums(is.na(airquality))
+columns_to_replace <- names(na_count[na_count <= threshold * nrow(airquality)])
+columns_to_drop <- names(na_count[na_count > threshold * nrow(airquality)])
+
+# Replace missing values with mean for selected columns
+for (col in columns_to_replace) {
+  airquality[[col]][is.na(airquality[[col]])] <- mean(airquality[[col]], na.rm = TRUE)
+}
+
+# Drop columns with too many missing values
+airquality <- airquality[, !(names(airquality) %in% columns_to_drop)]
+
+# (ii) Linear regression on "Ozone" and "Solar.R"
+model <- lm(Ozone ~ Solar.R, data = airquality)
+
+# (iii) Scatter plot with regression line
+ggplot(airquality, aes(x = Solar.R, y = Ozone)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, color = "red") +
+  labs(x = "Solar Radiation", y = "Ozone") +
+  ggtitle("Scatter Plot of Ozone vs. Solar Radiation with Regression Line")
+
+#36
+library(ggplot2)
+boxplot<-ggplot(ChickWeight,aes(x=factor(Diet),y=weight))+geom_boxplot()+labs(x="diet",y="weight")
+print(boxplot)
+
+diet_1<-ChickWeight[ChickWeight$Diet==1,]
+histogram<-ggplot(diet_1,aes(x=factor(Diet)))+geom_histogram(binwidth = 5,fill="blue",color="black")+labs(x="weight",y="frequency",title = "histogram of weight")
+print(histogram)
+
+#37
+data("ChickWeight")
+model<-lm(weight~Time+Diet,data=ChickWeight)
+summary(model)
+
+new_data<-data.frame(Time=10,Diet=1)
+predicted<-predict(model,newdata = new_data)
+print(predicted)
+
+actual<-ChickWeight$weight[ChickWeight$Time==10 & ChickWeight$Diet==1]
+error<-actual-predicted
+print(error)
