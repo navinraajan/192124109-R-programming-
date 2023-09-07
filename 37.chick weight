@@ -1,3 +1,4 @@
+
 # Load the dataset
 data <- read.csv("chicken_data.csv")
 # Create a multiple regression model
@@ -5,8 +6,8 @@ model <- lm(Weight ~ Time + Diet, data=data)
 # Predict the weight for Time=10 and Diet=1
 new_data <- data.frame(Time=10, Diet=1)
 predicted_weight <- predict(model, new_data)
-
 cat("Predicted weight for Time=10 and Diet=1:", predicted_weight, "\n")
+
 # Calculate the error in the model
 predicted_values <- predict(model, data)
 mse <- mean((data$Weight - predicted_values)^2)
